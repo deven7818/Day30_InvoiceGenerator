@@ -8,8 +8,10 @@ import java.util.Map;
  * 
  * 1. Calculate fare - given distance and time , the invoice generator should return the total fare for the journey. 
  * 2. Multiple rides - take multiple rides and calculate aggregate for that 
- * 3. Enhanced invoice - get total number of rides , total fare , average fare per ride
+ * 3. Enhanced invoice - get total number of rides , total fare , average fare per ride 
  * 4. Invoice Generator - Invoice service gets the list of rides from RideRepository and return ride invoice
+ * 5. Premium Rides(Bonus) - cab agency support 2 rides normal and premium
+ * 
  */
 public class InvoiceGenerator {
 	public static void main(String[] args) {
@@ -24,9 +26,14 @@ public class InvoiceGenerator {
 	 * @return - fare, if less than 5 fare = 5
 	 */
 	public double generateInvoice(Rides ride) {
-		double fare = 10 * ride.distance + ride.time;
+		if (ride.isPremium) {
+			double fare = 10 * ride.distance + ride.time;
 
-		return fare > 5 ? fare : 5;
+			return fare > 5 ? fare : 5;
+		} else {
+		}
+		double fare = 15 * ride.distance + 2 * ride.time;
+		return fare > 20 ? fare : 20;
 	}
 
 	/**
@@ -64,6 +71,9 @@ public class InvoiceGenerator {
 		return calculateTotalFare(rides).totalFare / rides.length;
 	}
 
+	/**
+	 * Method to generate invoice
+	 */
 	public Invoice generateInvoice(int i, HashMap<Integer, Rides[]> rideRepository) {
 		for (Map.Entry<Integer, Rides[]> rideEntry : rideRepository.entrySet()) {
 			if (rideEntry.getKey() == i)
