@@ -3,8 +3,9 @@ package com.invoicegenerator;
 /**
  * PROCEDURE
  * 
- * 1. Calculate fare - given distance and time , the invoice generator should  return the total fare for the journey. 
+ * 1. Calculate fare - given distance and time , the invoice generator should return the total fare for the journey. 
  * 2. Multiple rides - take multiple rides and calculate aggregate for that
+ * 3. Enhanced invoice - get total number of rides , total fare , average fare per ride
  */
 public class InvoiceGenerator {
 	public static void main(String[] args) {
@@ -37,6 +38,26 @@ public class InvoiceGenerator {
 			totalFare += this.generateInvoice(ride);
 		}
 		return totalFare;
+	}
+
+	/**
+	 * Method to get number of rides
+	 * 
+	 * @param rides - array of rides
+	 * @return - length of array
+	 */
+	public int getNumberOfRides(Rides[] rides) {
+		return rides.length;
+	}
+
+	/**
+	 * Method to calculate average ride fare
+	 * 
+	 * @param rides - array of rides
+	 * @return - length of array
+	 */
+	public double getAvarageRideFare(Rides[] rides) {
+		return calculateTotalFare(rides) / rides.length;
 	}
 
 }

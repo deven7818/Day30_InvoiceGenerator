@@ -38,4 +38,23 @@ public class CabInvoiceTest {
 		System.out.println("Total Fare = " + totalFare);
 		Assert.assertEquals(41, totalFare, 0.0);
 	}
+	
+	/**
+	 * total number of rides ,total fare, average fare per ride
+	 */
+	@Test
+	public void testTotalRidesAverageFareofMultipleRides() {
+		InvoiceGenerator invoiceGenerator = new InvoiceGenerator();
+
+		Rides[] rides = { new Rides(4, 5), new Rides(0.2, 1), new Rides(12, 15) };
+
+		double totalFare = invoiceGenerator.calculateTotalFare(rides);
+		int numberOfRides = invoiceGenerator.getNumberOfRides(rides);
+		double averageFare = invoiceGenerator.getAvarageRideFare(rides);
+
+		Assert.assertEquals(185, totalFare, 0.0);
+		Assert.assertEquals(3, numberOfRides);
+		Assert.assertEquals(61.66, averageFare, 0.5);
+	}
+
 }
