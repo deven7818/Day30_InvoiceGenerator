@@ -25,4 +25,17 @@ public class CabInvoiceTest {
 	public void testGenerateInvoiceGetMin() {
 		Assert.assertEquals(5, invoice.generateInvoice(new Rides(0.4, 1)), 0.0);
 	}
+
+	/**
+	 * multiple rides: Ride 1 - 3 km and 5 minutes. Ride 2 - 0.4 kms and 2 minute.
+	 * Should return total fare = 41
+	 */
+	@Test
+	public void whenGivenMultipleRidesShouldReturnTotalFare() {
+		Rides[] rides = { new Rides(3, 5), new Rides(0.4, 2) };
+		InvoiceGenerator invoiceGenerator = new InvoiceGenerator();
+		double totalFare = invoiceGenerator.calculateTotalFare(rides);
+		System.out.println("Total Fare = " + totalFare);
+		Assert.assertEquals(41, totalFare, 0.0);
+	}
 }
