@@ -1,11 +1,15 @@
 package com.invoicegenerator;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * PROCEDURE
  * 
  * 1. Calculate fare - given distance and time , the invoice generator should return the total fare for the journey. 
- * 2. Multiple rides - take multiple rides and calculate aggregate for that
+ * 2. Multiple rides - take multiple rides and calculate aggregate for that 
  * 3. Enhanced invoice - get total number of rides , total fare , average fare per ride
+ * 4. Invoice Generator - Invoice service gets the list of rides from RideRepository and return ride invoice
  */
 public class InvoiceGenerator {
 	public static void main(String[] args) {
@@ -30,14 +34,14 @@ public class InvoiceGenerator {
 	 * generateInvoice method and returned fare added to total fare
 	 * 
 	 * @param rides - array of rides
-	 * @return - totalFare
+	 * @return - Invoice for ride
 	 */
-	public double calculateTotalFare(Rides[] rides) {
+	public Invoice calculateTotalFare(Rides[] rides) {
 		double totalFare = 0;
 		for (Rides ride : rides) {
 			totalFare += this.generateInvoice(ride);
 		}
-		return totalFare;
+		return new Invoice(rides.length, totalFare, totalFare / rides.length);
 	}
 
 	/**
@@ -57,7 +61,15 @@ public class InvoiceGenerator {
 	 * @return - length of array
 	 */
 	public double getAvarageRideFare(Rides[] rides) {
-		return calculateTotalFare(rides) / rides.length;
+		return calculateTotalFare(rides).totalFare / rides.length;
+	}
+
+	public Invoice generateInvoice(int i, HashMap<Integer, Rides[]> rideRepository) {
+		for (Map.Entry<Integer, Rides[]> rideEntry : rideRepository.entrySet()) {
+			if (rideEntry.getKey() == i)
+				return calculateTotalFare(rideEntry.getValue());
+		}
+		return null;
 	}
 
 }

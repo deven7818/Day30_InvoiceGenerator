@@ -34,7 +34,7 @@ public class CabInvoiceTest {
 	public void whenGivenMultipleRidesShouldReturnTotalFare() {
 		Rides[] rides = { new Rides(3, 5), new Rides(0.4, 2) };
 		InvoiceGenerator invoiceGenerator = new InvoiceGenerator();
-		double totalFare = invoiceGenerator.calculateTotalFare(rides);
+		double totalFare = invoiceGenerator.calculateTotalFare(rides).totalFare;
 		System.out.println("Total Fare = " + totalFare);
 		Assert.assertEquals(41, totalFare, 0.0);
 	}
@@ -48,7 +48,7 @@ public class CabInvoiceTest {
 
 		Rides[] rides = { new Rides(4, 5), new Rides(0.2, 1), new Rides(12, 15) };
 
-		double totalFare = invoiceGenerator.calculateTotalFare(rides);
+		double totalFare = invoiceGenerator.calculateTotalFare(rides).totalFare;
 		int numberOfRides = invoiceGenerator.getNumberOfRides(rides);
 		double averageFare = invoiceGenerator.getAvarageRideFare(rides);
 
